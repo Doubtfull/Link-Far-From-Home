@@ -49,7 +49,8 @@ class Overworld:
 		self.max_level = max_level
 		self.current_level = start_level
 		self.create_level = create_level
-
+		#main_menu = pygame.image.load('./graphics/overworld/blckscrn.png')
+		#self.main_menu_image = main_menu
 		# movement logic
 		self.moving = False
 		self.move_direction = pygame.math.Vector2(0,0)
@@ -135,3 +136,4 @@ class Overworld:
 		self.draw_paths()
 		self.nodes.draw(self.display_surface)
 		self.icon.draw(self.display_surface)
+		#self.display_surface.blit(self.main_menu_image, (0,0))

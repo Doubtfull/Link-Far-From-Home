@@ -24,6 +24,9 @@ class Player(pygame.sprite.Sprite):
 		self.gravity = 0.8
 		self.jump_speed = -16
 		self.collision_rect = pygame.Rect(self.rect.topleft,(50,self.rect.height))
+		#self.is_dashing = False
+		#self.can_dash = True
+		#self.dash_cooldown
 
 		# player status
 		self.status = 'idle'
@@ -111,6 +114,19 @@ class Player(pygame.sprite.Sprite):
 		if keys[pygame.K_SPACE] and self.on_ground:
 			self.jump()
 			self.create_jump_particles(self.rect.midbottom)
+
+		#if keys[pygame.K_LSHIFT] and self.can_dash:
+			#if self.facing_right:
+				#self.direction.x = 30
+				#self.is_dashing = True
+			#else:
+				#self.direction.x = - 30
+				#self.is_dashing = True
+
+		#else:
+			#self.is_dashing = False
+
+
 
 	def get_status(self):
 		if self.direction.y < 0:
