@@ -48,6 +48,10 @@ class Level:
 		# grass setup 
 		grass_layout = import_csv_layout(level_data['grass'])
 		self.grass_sprites = self.create_tile_group(grass_layout,'grass')
+  
+		# bg decorations setup
+		bg_dec_layout = import_csv_layout(level_data['bg_dec'])
+		self.bgdec_sprites = self.create_tile_group(bg_dec_layout,'bg_dec')
 
 		# crates 
 		crate_layout = import_csv_layout(level_data['crates'])
@@ -96,7 +100,12 @@ class Level:
 						grass_tile_list = import_cut_graphics('./graphics/decoration/grass/Tiles.png')
 						tile_surface = grass_tile_list[int(val)]
 						sprite = StaticTile(tile_size,x,y,tile_surface)
-					
+      
+					if type == 'bg_dec':
+						bgdec_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						tile_surface = bgdec_tile_list[int(val)]
+						sprite = StaticTile(tile_size,x,y,tile_surface)
+      
 					if type == 'crates':
 						sprite = Crate(tile_size,x,y)
 
@@ -277,6 +286,10 @@ class Level:
 		# grass
 		self.grass_sprites.update(self.world_shift)
 		self.grass_sprites.draw(self.display_surface)
+  
+		# background decorations
+		self.bgdec_sprites.update(self.world_shift)
+		self.bgdec_sprites.draw(self.display_surface)
 
 		# coins 
 		self.coin_sprites.update(self.world_shift)
