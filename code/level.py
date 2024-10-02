@@ -53,6 +53,19 @@ class Level:
 		bg_dec_layout = import_csv_layout(level_data['bg_dec'])
 		self.bgdec_sprites = self.create_tile_group(bg_dec_layout,'bg_dec')
 
+		bg_dec2_layout = import_csv_layout(level_data['bg_dec2'])
+		self.bgdec2_sprites = self.create_tile_group(bg_dec2_layout,'bg_dec2')
+
+		bg_dec3_layout = import_csv_layout(level_data['bg_dec3'])
+		self.bgdec3_sprites = self.create_tile_group(bg_dec3_layout,'bg_dec3')
+
+		bg_dec4_layout = import_csv_layout(level_data['bg_dec4'])
+		self.bgdec4_sprites = self.create_tile_group(bg_dec4_layout,'bg_dec4')
+
+		# bg setup
+		bg_layout = import_csv_layout(level_data['bg'])
+		self.bg_sprites = self.create_tile_group(bg_layout,'bg')
+
 		# crates 
 		crate_layout = import_csv_layout(level_data['crates'])
 		self.crate_sprites = self.create_tile_group(crate_layout,'crates')
@@ -104,6 +117,26 @@ class Level:
 					if type == 'bg_dec':
 						bgdec_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
 						tile_surface = bgdec_tile_list[int(val)]
+						sprite = StaticTile(tile_size,x,y,tile_surface)
+
+					if type == 'bg_dec2':
+						bgdec2_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						tile_surface = bgdec2_tile_list[int(val)]
+						sprite = StaticTile(tile_size,x,y,tile_surface)
+
+					if type == 'bg_dec3':
+						bgdec3_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						tile_surface = bgdec3_tile_list[int(val)]
+						sprite = StaticTile(tile_size,x,y,tile_surface)
+
+					if type == 'bg_dec4':
+						bgdec4_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						tile_surface = bgdec4_tile_list[int(val)]
+						sprite = StaticTile(tile_size,x,y,tile_surface)
+
+					if type == 'bg':
+						bg_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						tile_surface = bg_tile_list[int(val)]
 						sprite = StaticTile(tile_size,x,y,tile_surface)
       
 					if type == 'crates':
@@ -266,7 +299,27 @@ class Level:
 		# dust particles 
 		self.dust_sprite.update(self.world_shift)
 		self.dust_sprite.draw(self.display_surface)
+
+		# background decorations
+		self.bgdec_sprites.update(self.world_shift)
+		self.bgdec_sprites.draw(self.display_surface)
+
+		self.bgdec4_sprites.update(self.world_shift)
+		self.bgdec4_sprites.draw(self.display_surface)
+
+		self.bgdec3_sprites.update(self.world_shift)
+		self.bgdec3_sprites.draw(self.display_surface)
+
+		self.bgdec2_sprites.update(self.world_shift)
+		self.bgdec2_sprites.draw(self.display_surface)
+
+		self.bg_sprites.update(self.world_shift)
+		self.bg_sprites.draw(self.display_surface)
+
 		
+
+		
+
 		# terrain 
 		self.terrain_sprites.update(self.world_shift)
 		self.terrain_sprites.draw(self.display_surface)
@@ -287,9 +340,7 @@ class Level:
 		self.grass_sprites.update(self.world_shift)
 		self.grass_sprites.draw(self.display_surface)
   
-		# background decorations
-		self.bgdec_sprites.update(self.world_shift)
-		self.bgdec_sprites.draw(self.display_surface)
+		
 
 		# coins 
 		self.coin_sprites.update(self.world_shift)
