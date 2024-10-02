@@ -76,7 +76,6 @@ class Level:
 		# decoration 
 		self.sky = Sky(8)
 		level_width = len(terrain_layout[0]) * tile_size
-		self.water = Water(screen_height - 20,level_width)
 		self.clouds = Clouds(400,level_width,30)
 
 	def create_tile_group(self,layout,type):
@@ -307,4 +306,3 @@ class Level:
 		self.check_enemy_collisions()
 
 		# water 
-		self.water.draw(self.display_surface,self.world_shift)
