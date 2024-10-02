@@ -1,0 +1,1 @@
+./graphics/overworld/hat.png

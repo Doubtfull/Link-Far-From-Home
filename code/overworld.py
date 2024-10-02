@@ -2,6 +2,8 @@ import pygame
 from game_data import levels
 from support import import_folder
 from decoration import Sky
+from menu import Button
+from menu import BGImage
 
 class Node(pygame.sprite.Sprite):
 	def __init__(self,pos,status,icon_speed,path):
@@ -49,8 +51,10 @@ class Overworld:
 		self.max_level = max_level
 		self.current_level = start_level
 		self.create_level = create_level
-		#main_menu = pygame.image.load('./graphics/overworld/blckscrn.png')
-		#self.main_menu_image = main_menu
+		bg_image = pygame.image.load("./graphics/ui/menu_background.png")
+		self.bg = Button(-60, -10, bg_image)
+		level_1 = pygame.image.load("./graphics/ui/level1.png")
+		self.level1 = BGImage(325, 180, level_1)
 		# movement logic
 		self.moving = False
 		self.move_direction = pygame.math.Vector2(0,0)
@@ -65,6 +69,9 @@ class Overworld:
 		self.start_time = pygame.time.get_ticks()
 		self.allow_input = False
 		self.timer_length = 300
+  
+		#adfs
+		self.main_menu = True
 
 	def setup_nodes(self):
 		self.nodes = pygame.sprite.Group()
@@ -125,6 +132,12 @@ class Overworld:
 			if current_time - self.start_time >= self.timer_length:
 				self.allow_input = True
 
+	def check_press(self):
+		if self.bg.check_pressed() and self.main_menu:
+			self.main_menu = False
+   
+
+
 	def run(self):
 		self.input_timer()
 		self.input()
@@ -132,8 +145,9 @@ class Overworld:
 		self.icon.update()
 		self.nodes.update()
 
-		self.sky.draw(self.display_surface)
 		self.draw_paths()
-		self.nodes.draw(self.display_surface)
 		self.icon.draw(self.display_surface)
-		#self.display_surface.blit(self.main_menu_image, (0,0))
+		self.check_press()
+		if self.main_menu:
+			self.bg.draw(self.display_surface)
+		self.level1.draw(self.display_surface)
