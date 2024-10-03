@@ -301,9 +301,9 @@ class Level:
 		self.dust_sprite.draw(self.display_surface)
 
 		# background decorations
-		self.bgdec_sprites.update(self.world_shift)
-		self.bgdec_sprites.draw(self.display_surface)
-
+		self.bg_sprites.update(self.world_shift)
+		self.bg_sprites.draw(self.display_surface)
+  
 		self.bgdec4_sprites.update(self.world_shift)
 		self.bgdec4_sprites.draw(self.display_surface)
 
@@ -312,13 +312,9 @@ class Level:
 
 		self.bgdec2_sprites.update(self.world_shift)
 		self.bgdec2_sprites.draw(self.display_surface)
-
-		self.bg_sprites.update(self.world_shift)
-		self.bg_sprites.draw(self.display_surface)
-
 		
-
-		
+		self.bgdec_sprites.update(self.world_shift)
+		self.bgdec_sprites.draw(self.display_surface)
 
 		# terrain 
 		self.terrain_sprites.update(self.world_shift)
