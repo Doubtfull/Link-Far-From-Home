@@ -7,9 +7,22 @@ from decoration import Sky, Water, Clouds
 from player import Player
 from particles import ParticleEffect
 from game_data import levels
+from parallax import ParallaxBackground
 
 class Level:
 	def __init__(self,current_level,surface,create_overworld,change_coins,change_health):
+		# Parallax background
+		parallax_images = [
+			'./graphics/background/bg_plains1.png',
+			'./graphics/background/bg_plains2.png',
+			'./graphics/background/bg_plains3.png',
+			'./graphics/background/bg_plains4.png',
+			'./graphics/background/bg_plains5.png'
+		]
+		y_offset = 0  # Adjust this value to raise or lower the background
+		self.parallax_bg = ParallaxBackground(parallax_images, y_offset)
+     
+
 		# general setup
 		self.display_surface = surface
 		self.world_shift = 0
@@ -286,11 +299,12 @@ class Level:
 					self.player.sprite.get_damage()
 
 	def run(self):
-		# run the entire game / level 
+		# Update and draw parallax background
+		self.parallax_bg.update(self.world_shift)
+		self.parallax_bg.draw(self.display_surface)
 		
 		# sky 
-		self.sky.draw(self.display_surface)
-		self.clouds.draw(self.display_surface,self.world_shift)
+		
 		
 		# background palms
 		self.bg_palm_sprites.update(self.world_shift)

@@ -77,7 +77,7 @@ while True:
 			pygame.quit()
 			sys.exit()
 	
-	screen.fill('grey')
+	screen.fill((135, 206, 235))  # Sky blue color
 	game.run()
 
 	pygame.display.update()
