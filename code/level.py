@@ -236,7 +236,7 @@ class Level:
 			player.speed = 0
 		else:
 			self.world_shift = 0
-			player.speed = 8
+			player.speed = 6
 
 	def get_player_on_ground(self):
 		if self.player.sprite.on_ground:
