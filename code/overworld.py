@@ -51,10 +51,16 @@ class Overworld:
 		self.max_level = max_level
 		self.current_level = start_level
 		self.create_level = create_level
+		# level one
 		bg_image = pygame.image.load("./graphics/ui/menu_background.png")
 		self.bg = Button(-60, -10, bg_image)
 		level_1 = pygame.image.load("./graphics/ui/level1.png")
 		self.level1 = BGImage(325, 180, level_1)
+  
+		#level two
+		bg2_image = pygame.image.load("./graphics/ui/bg_2.jpg")
+		self.bg2 = Button (0,0, bg2_image)
+  
 		# movement logic
 		self.moving = False
 		self.move_direction = pygame.math.Vector2(0,0)
@@ -69,9 +75,12 @@ class Overworld:
 		self.start_time = pygame.time.get_ticks()
 		self.allow_input = False
 		self.timer_length = 300
+
   
+		self.oneyes = True
+		self.twoyes = False
 		#adfs
-		self.main_menu = True
+		#self.main_menu = True
 
 	def setup_nodes(self):
 		self.nodes = pygame.sprite.Group()
@@ -101,10 +110,14 @@ class Overworld:
 				self.move_direction = self.get_movement_data('next')
 				self.current_level += 1
 				self.moving = True
+				self.twoyes = True
+				self.oneyes = False
 			elif keys[pygame.K_LEFT] and self.current_level > 0:
 				self.move_direction = self.get_movement_data('previous')
 				self.current_level -= 1
 				self.moving = True
+				self.oneyes = True
+				self.twoyes = False
 			elif keys[pygame.K_SPACE]:
 				self.create_level(self.current_level)
 
@@ -132,9 +145,9 @@ class Overworld:
 			if current_time - self.start_time >= self.timer_length:
 				self.allow_input = True
 
-	def check_press(self):
+	'''def check_press(self):
 		if self.bg.check_pressed() and self.main_menu:
-			self.main_menu = False
+			self.main_menu = False'''
    
 
 
@@ -147,7 +160,10 @@ class Overworld:
 
 		self.draw_paths()
 		self.icon.draw(self.display_surface)
-		self.check_press()
-		if self.main_menu:
+		#self.check_press()
+		if self.oneyes:
 			self.bg.draw(self.display_surface)
-		self.level1.draw(self.display_surface)
+			self.level1.draw(self.display_surface)
+
+		if self.twoyes:
+			self.bg2.draw(self.display_surface)
