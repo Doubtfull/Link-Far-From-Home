@@ -51,15 +51,24 @@ class Overworld:
 		self.max_level = max_level
 		self.current_level = start_level
 		self.create_level = create_level
+		# mainmenu
+		menu_image = pygame.image.load("./graphics/ui/LFFHMM.png")
+		self.mi = Button(-60, -10, menu_image)
+  
+		play_image = pygame.image.load("./graphics/ui/PLAY.png")
+		self.play = Button(350, 200, play_image)
+  
 		# level one
-		bg_image = pygame.image.load("./graphics/ui/menu_background.png")
+		bg_image = pygame.image.load("./graphics/ui/bg.png")
 		self.bg = Button(-60, -10, bg_image)
 		level_1 = pygame.image.load("./graphics/ui/level1.png")
 		self.level1 = BGImage(325, 180, level_1)
   
 		#level two
 		bg2_image = pygame.image.load("./graphics/ui/bg_2.jpg")
-		self.bg2 = Button (0,0, bg2_image)
+		self.bg2 = Button (0,-320, bg2_image)
+		level_2 = pygame.image.load("./graphics/ui/level2.png")
+		self.level2 = BGImage(325, 180, level_2)
   
 		# movement logic
 		self.moving = False
@@ -76,11 +85,11 @@ class Overworld:
 		self.allow_input = False
 		self.timer_length = 300
 
-  
-		self.oneyes = True
+
+		self.oneyes = False
 		self.twoyes = False
 		#adfs
-		#self.main_menu = True
+		self.main_menu = True
 
 	def setup_nodes(self):
 		self.nodes = pygame.sprite.Group()
@@ -105,7 +114,7 @@ class Overworld:
 	def input(self):
 		keys = pygame.key.get_pressed()
 
-		if not self.moving and self.allow_input:
+		if not self.moving and self.allow_input and self.main_menu == False:
 			if keys[pygame.K_RIGHT] and self.current_level < self.max_level:
 				self.move_direction = self.get_movement_data('next')
 				self.current_level += 1
@@ -145,9 +154,10 @@ class Overworld:
 			if current_time - self.start_time >= self.timer_length:
 				self.allow_input = True
 
-	'''def check_press(self):
-		if self.bg.check_pressed() and self.main_menu:
-			self.main_menu = False'''
+	def check_press(self):
+		if self.play.check_pressed() and self.main_menu:
+			self.main_menu = False
+			self.oneyes = True
    
 
 
@@ -160,10 +170,16 @@ class Overworld:
 
 		self.draw_paths()
 		self.icon.draw(self.display_surface)
-		#self.check_press()
+
+		if self.main_menu:
+			self.mi.draw(self.display_surface)
+			self.play.draw(self.display_surface)
+
+		self.check_press()
 		if self.oneyes:
 			self.bg.draw(self.display_surface)
 			self.level1.draw(self.display_surface)
 
 		if self.twoyes:
 			self.bg2.draw(self.display_surface)
+			self.level2.draw(self.display_surface)

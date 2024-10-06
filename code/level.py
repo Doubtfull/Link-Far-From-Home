@@ -29,8 +29,8 @@ class Level:
 		self.current_x = None
 
 		# audio 
-		self.coin_sound = pygame.mixer.Sound('./audio/effects/coin.wav')
-		self.stomp_sound = pygame.mixer.Sound('./audio/effects/stomp.wav')
+		self.coin_sound = pygame.mixer.Sound('./audio/effects/coin.mp3')
+		self.stomp_sound = pygame.mixer.Sound('./audio/effects/stomp.mp3')
 
 		# overworld connection 
 		self.create_overworld = create_overworld
@@ -115,6 +115,7 @@ class Level:
 			for enemy in self.enemy_sprites.sprites():
 				if attack_rect.colliderect(enemy.rect):
 					enemy.kill()
+					self.stomp_sound.play()
 					explosion_sprite = ParticleEffect(enemy.rect.center,'explosion')
 					self.explosion_sprites.add(explosion_sprite)
 
