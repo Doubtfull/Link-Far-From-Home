@@ -218,7 +218,7 @@ class Level:
 					sprite = Player((x,y),self.display_surface,self.create_jump_particles,change_health)
 					self.player.add(sprite)
 				if val == '1':
-					hat_surface = pygame.image.load('./graphics/character/hat.png').convert_alpha()
+					hat_surface = pygame.image.load('./graphics/ui/GEM.png').convert_alpha()
 					sprite = StaticTile(tile_size,x,y,hat_surface)
 					self.goal.add(sprite)
 

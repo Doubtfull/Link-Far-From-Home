@@ -92,7 +92,20 @@ class Overworld:
 
 		self.oneyes = False
 		self.twoyes = False
+
+		# options
+		opt_image = pygame.image.load("./graphics/ui/HTP.png")
+		self.opt = Button(260, 300, opt_image)
+		instruct_image = pygame.image.load("./graphics/ui/instructions.png")
+		self.instruct = Button(40, 200, instruct_image)
+		arrows_image = pygame.image.load("./graphics/ui/ARROWS.png")
+		self.arrows = Button(210, 175, arrows_image)
+		back_image = pygame.image.load("./graphics/ui/BACK.png")
+		self.back = Button(360, 400, back_image)
+  
 		#adfs
+		self.show_buttons = True
+		self.options_menu = False
 		self.main_menu = True
 
 	def setup_nodes(self):
@@ -159,6 +172,15 @@ class Overworld:
 				self.allow_input = True
 
 	def check_press(self):
+		if self.back.check_pressed() and self.main_menu and self.options_menu == True:
+			self.options_menu = False
+			self.show_buttons = True
+     
+		if self.opt.check_pressed() and self.main_menu and self.options_menu == False:
+			self.options_menu = True
+			self.show_buttons = False
+     
+     
 		if self.play.check_pressed() and self.main_menu:
 			self.main_menu = False
 			if self.current_level == 0:
@@ -182,15 +204,23 @@ class Overworld:
 
 		if self.main_menu:
 			self.mi.draw(self.display_surface)
-			self.play.draw(self.display_surface)
+			if self.show_buttons:
+				self.play.draw(self.display_surface)
+				self.opt.draw(self.display_surface)
 
 		self.check_press()
 		if self.oneyes:
 			self.bg.draw(self.display_surface)
 			self.level1.draw(self.display_surface)
-			self.RA.draw(self.display_surface)
+			if self.max_level == 1:
+				self.RA.draw(self.display_surface)
 
 		if self.twoyes:
 			self.bg2.draw(self.display_surface)
 			self.level2.draw(self.display_surface)
 			self.LA.draw(self.display_surface)
+   
+		if self.options_menu:
+			self.instruct.draw(self.display_surface)
+			self.arrows.draw(self.display_surface)
+			self.back.draw(self.display_surface)

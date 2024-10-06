@@ -22,7 +22,7 @@ class UI:
 		current_health_ratio = current / full
 		current_bar_width = self.bar_max_width * current_health_ratio
 		health_bar_rect = pygame.Rect(self.health_bar_topleft,(current_bar_width,self.bar_height))
-		pygame.draw.rect(self.display_surface,'#dc4949',health_bar_rect)
+		pygame.draw.rect(self.display_surface,'#22b14c',health_bar_rect)
 
 	def show_coins(self,amount):
 		self.display_surface.blit(self.coin,self.coin_rect)
