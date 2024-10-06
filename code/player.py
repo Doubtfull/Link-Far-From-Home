@@ -107,7 +107,7 @@ class Player(pygame.sprite.Sprite):
 
 	def get_input(self):
 		keys = pygame.key.get_pressed()
-		if keys[pygame.K_LSHIFT] and not self.attacking:
+		if keys[pygame.K_f] and not self.attacking:
 			self.attack()
 		if keys[pygame.K_RIGHT]:
 			self.direction.x = 1
