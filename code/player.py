@@ -1,6 +1,7 @@
 import pygame 
 from support import import_folder
 from math import sin
+#from attack import Attack
 
 class Player(pygame.sprite.Sprite):
 	def __init__(self,pos,surface,create_jump_particles,change_health):
@@ -10,13 +11,18 @@ class Player(pygame.sprite.Sprite):
 		self.animation_speed = 0.15
 		self.image = self.animations['idle'][self.frame_index]
 		self.rect = self.image.get_rect(topleft = pos)
-		
+
 		# dust particles 
 		self.import_dust_run_particles()
 		self.dust_frame_index = 0
 		self.dust_animation_speed = 0.15
 		self.display_surface = surface
 		self.create_jump_particles = create_jump_particles
+		#attack
+		self.attacking = False
+		self.attack_cooldown = 500
+		self.attack_time = 0
+		self.attack_duration = 200
 
 		# player movement
 		self.direction = pygame.math.Vector2(0,0)
@@ -47,9 +53,24 @@ class Player(pygame.sprite.Sprite):
 		self.jump_sound.set_volume(0.5)
 		self.hit_sound = pygame.mixer.Sound('./audio/effects/hit.wav')
 
+
+	#def attack(self):
+	'''	if (
+		self.attacking
+		and self.attack_timer < 0
+		and not self.on_left
+		and not self.on_right
+		):
+			offset = 0, 0
+			rect = pygame.Rect(offset, (50, 50))
+			rect.move_ip(*self.rect.center)
+			self.attacks.add(Attack(rect, not self.facing_right, damage=2))
+			self.jump_sound.play()
+			self.attack_timer = self.attack_cooldown'''
+
 	def import_character_assets(self):
 		character_path = './graphics/character/'
-		self.animations = {'idle':[],'run':[],'jump':[],'fall':[]}
+		self.animations = {'idle':[],'run':[],'jump':[],'fall':[], 'attack' :[]}
 
 		for animation in self.animations.keys():
 			full_path = character_path + animation
@@ -60,11 +81,12 @@ class Player(pygame.sprite.Sprite):
 
 	def animate(self):
 		animation = self.animations[self.status]
-
-		# loop over frame index 
 		self.frame_index += self.animation_speed
 		if self.frame_index >= len(animation):
 			self.frame_index = 0
+			if self.status == 'attack':
+				self.attacking = False
+
 
 		image = animation[int(self.frame_index)]
 		if self.facing_right:
@@ -101,7 +123,8 @@ class Player(pygame.sprite.Sprite):
 
 	def get_input(self):
 		keys = pygame.key.get_pressed()
-
+		if keys[pygame.K_LSHIFT] and not self.attacking:
+			self.attack()
 		if keys[pygame.K_RIGHT]:
 			self.direction.x = 1
 			self.facing_right = True
@@ -114,6 +137,8 @@ class Player(pygame.sprite.Sprite):
 		if keys[pygame.K_SPACE] and self.on_ground:
 			self.jump()
 			self.create_jump_particles(self.rect.midbottom)
+   
+		#self.attacking = keys[pygame.K_a]
 
 		#if keys[pygame.K_LSHIFT] and self.can_dash:
 			#if self.facing_right:
@@ -126,10 +151,14 @@ class Player(pygame.sprite.Sprite):
 		#else:
 			#self.is_dashing = False
 
-
+	def attack(self):
+		self.attacking = True
+		self.attack_time = pygame.time.get_ticks()
 
 	def get_status(self):
-		if self.direction.y < 0:
+		if self.attacking:
+			self.status = 'attack'
+		elif self.direction.y < 0:
 			self.status = 'jump'
 		elif self.direction.y > 1:
 			self.status = 'fall'
@@ -172,4 +201,18 @@ class Player(pygame.sprite.Sprite):
 		self.run_dust_animation()
 		self.invincibility_timer()
 		self.wave_value()
+		if self.attacking:
+			current_time = pygame.time.get_ticks()
+			if current_time - self.attack_time >= self.attack_duration:
+				self.attacking = False
+    
+	def get_attack_rect(self):
+		if not self.attacking:
+			return None
+
+		if self.facing_right:
+			return pygame.Rect(self.rect.right - 10, self.rect.y, 60, self.rect.height)
+
+		else:
+			return pygame.Rect(self.rect.left - 50, self.rect.y, 60, self.rect.height)
 		

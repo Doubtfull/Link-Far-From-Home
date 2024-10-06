@@ -108,6 +108,16 @@ class Level:
 		level_width = len(terrain_layout[0]) * tile_size
 		self.clouds = Clouds(400,level_width,30)
 
+	def check_player_attack_collisions(self):
+		attack_rect = self.player.sprite.get_attack_rect()
+  
+		if attack_rect:
+			for enemy in self.enemy_sprites.sprites():
+				if attack_rect.colliderect(enemy.rect):
+					enemy.kill()
+					explosion_sprite = ParticleEffect(enemy.rect.center,'explosion')
+					self.explosion_sprites.add(explosion_sprite)
+
 	def create_tile_group(self,layout,type):
 		sprite_group = pygame.sprite.Group()
 
@@ -375,8 +385,10 @@ class Level:
 
 		self.check_death()
 		self.check_win()
-
+		self.check_player_attack_collisions()
 		self.check_coin_collisions()
 		self.check_enemy_collisions()
 
+		'''for attack in self.player.sprite.attacks:
+    			pygame.draw.rect(self.display_surface, 'red', attack.rect)'''
 		# water 
