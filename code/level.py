@@ -287,6 +287,7 @@ class Level:
 	def check_coin_collisions(self):
 		collided_coins = pygame.sprite.spritecollide(self.player.sprite,self.coin_sprites,True)
 		if collided_coins:
+			Player.speed = 20
 			self.coin_sound.play()
 			for coin in collided_coins:
 				self.change_coins(coin.value)
@@ -389,6 +390,4 @@ class Level:
 		self.check_coin_collisions()
 		self.check_enemy_collisions()
 
-		'''for attack in self.player.sprite.attacks:
-    			pygame.draw.rect(self.display_surface, 'red', attack.rect)'''
 		# water 

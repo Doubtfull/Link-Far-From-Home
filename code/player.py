@@ -1,7 +1,6 @@
 import pygame 
 from support import import_folder
 from math import sin
-#from attack import Attack
 
 class Player(pygame.sprite.Sprite):
 	def __init__(self,pos,surface,create_jump_particles,change_health):
@@ -52,21 +51,6 @@ class Player(pygame.sprite.Sprite):
 		self.jump_sound = pygame.mixer.Sound('./audio/effects/jump.wav')
 		self.jump_sound.set_volume(0.5)
 		self.hit_sound = pygame.mixer.Sound('./audio/effects/hit.wav')
-
-
-	#def attack(self):
-	'''	if (
-		self.attacking
-		and self.attack_timer < 0
-		and not self.on_left
-		and not self.on_right
-		):
-			offset = 0, 0
-			rect = pygame.Rect(offset, (50, 50))
-			rect.move_ip(*self.rect.center)
-			self.attacks.add(Attack(rect, not self.facing_right, damage=2))
-			self.jump_sound.play()
-			self.attack_timer = self.attack_cooldown'''
 
 	def import_character_assets(self):
 		character_path = './graphics/character/'
@@ -137,19 +121,6 @@ class Player(pygame.sprite.Sprite):
 		if keys[pygame.K_SPACE] and self.on_ground:
 			self.jump()
 			self.create_jump_particles(self.rect.midbottom)
-   
-		#self.attacking = keys[pygame.K_a]
-
-		#if keys[pygame.K_LSHIFT] and self.can_dash:
-			#if self.facing_right:
-				#self.direction.x = 30
-				#self.is_dashing = True
-			#else:
-				#self.direction.x = - 30
-				#self.is_dashing = True
-
-		#else:
-			#self.is_dashing = False
 
 	def attack(self):
 		self.attacking = True
