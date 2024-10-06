@@ -2,7 +2,7 @@ import pygame
 from support import import_csv_layout, import_cut_graphics
 from settings import tile_size, screen_height, screen_width
 from tiles import Tile, StaticTile, Crate, Coin, Palm
-from enemy import Enemy
+from enemy import Enemy, Beenemy
 from decoration import Sky, Water, Clouds
 from player import Player
 from particles import ParticleEffect
@@ -129,17 +129,27 @@ class Level:
 					y = row_index * tile_size
 
 					if type == 'terrain':
-						terrain_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						if self.current_level == 0:
+							terrain_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						elif self.current_level == 1:
+							terrain_tile_list = import_cut_graphics('./graphics/terrain/Hive.png')
 						tile_surface = terrain_tile_list[int(val)]
 						sprite = StaticTile(tile_size,x,y,tile_surface)
 						
+						
 					if type == 'grass':
-						grass_tile_list = import_cut_graphics('./graphics/decoration/grass/Tiles.png')
+						if self.current_level == 0:
+							grass_tile_list = import_cut_graphics('./graphics/decoration/grass/Tiles.png')
+						elif self.current_level == 1:
+							grass_tile_list = import_cut_graphics('./graphics/decoration/grass/Hive.png')
 						tile_surface = grass_tile_list[int(val)]
 						sprite = StaticTile(tile_size,x,y,tile_surface)
       
 					if type == 'bg_dec':
-						bgdec_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						if self.current_level == 0:
+							bgdec_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						elif self.current_level == 1:
+							bgdec_tile_list = import_cut_graphics('./graphics/decoration/grass/Hive.png')
 						tile_surface = bgdec_tile_list[int(val)]
 						sprite = StaticTile(tile_size,x,y,tile_surface)
 
@@ -149,7 +159,10 @@ class Level:
 						sprite = StaticTile(tile_size,x,y,tile_surface)
 
 					if type == 'bg_dec3':
-						bgdec3_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						if self.current_level == 0:
+							bgdec3_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						elif self.current_level == 1:
+							bgdec3_tile_list = import_cut_graphics('./graphics/terrain/Hive.png')
 						tile_surface = bgdec3_tile_list[int(val)]
 						sprite = StaticTile(tile_size,x,y,tile_surface)
 
@@ -159,7 +172,10 @@ class Level:
 						sprite = StaticTile(tile_size,x,y,tile_surface)
 
 					if type == 'bg':
-						bg_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						if self.current_level == 0:
+							bg_tile_list = import_cut_graphics('./graphics/terrain/Tiles.png')
+						elif self.current_level == 1:
+							bg_tile_list = import_cut_graphics('./graphics/terrain/Hive.png')
 						tile_surface = bg_tile_list[int(val)]
 						sprite = StaticTile(tile_size,x,y,tile_surface)
       
@@ -178,7 +194,10 @@ class Level:
 						sprite = Palm(tile_size,x,y,'./graphics/terrain/palm_bg',64)
 
 					if type == 'enemies':
-						sprite = Enemy(tile_size,x,y)
+						if self.current_level == 0:
+							sprite = Enemy(tile_size,x,y)
+						elif self.current_level == 1:
+							sprite = Beenemy(tile_size,x,y)
 
 					if type == 'constraint':
 						sprite = Tile(tile_size,x,y)
