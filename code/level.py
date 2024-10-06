@@ -116,7 +116,10 @@ class Level:
 				if attack_rect.colliderect(enemy.rect):
 					enemy.kill()
 					self.stomp_sound.play()
-					explosion_sprite = ParticleEffect(enemy.rect.center,'explosion')
+					if self.current_level == 0:
+						explosion_sprite = ParticleEffect(enemy.rect.center,'explosion')
+					elif self.current_level == 1:
+						explosion_sprite = ParticleEffect(enemy.rect.center,'beexplosion')
 					self.explosion_sprites.add(explosion_sprite)
 
 	def create_tile_group(self,layout,type):
@@ -317,17 +320,17 @@ class Level:
 
 		if enemy_collisions:
 			for enemy in enemy_collisions:
-				enemy_center = enemy.rect.centery
-				enemy_top = enemy.rect.top
-				player_bottom = self.player.sprite.rect.bottom
-				if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
-					self.stomp_sound.play()
-					self.player.sprite.direction.y = -15
-					explosion_sprite = ParticleEffect(enemy.rect.center,'explosion')
-					self.explosion_sprites.add(explosion_sprite)
-					enemy.kill()
-				else:
-					self.player.sprite.get_damage()
+				#enemy_center = enemy.rect.centery
+				#enemy_top = enemy.rect.top
+				#player_bottom = self.player.sprite.rect.bottom
+				#if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
+				#	self.stomp_sound.play()
+				#	self.player.sprite.direction.y = -15
+				#	explosion_sprite = ParticleEffect(enemy.rect.center,'explosion')
+				#	self.explosion_sprites.add(explosion_sprite)
+				#	enemy.kill()
+				#else:
+				self.player.sprite.get_damage()
 
 	def run(self):
 		# Update and draw parallax background

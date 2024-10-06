@@ -31,7 +31,7 @@ level_1 = {
         'bg_dec3': './levels/1/level_1_bg_decorations3.csv',
         'bg_dec4': './levels/1/level_1_bg_decorations4.csv',
         'bg': './levels/1/level_1_bg_bg.csv',
-		'node_pos': (300,220),
+		'node_pos': (120,220),
 		'node_graphics': './graphics/overworld/1',
 		'unlock': 2}
 

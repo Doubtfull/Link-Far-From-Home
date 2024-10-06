@@ -150,7 +150,7 @@ class Player(pygame.sprite.Sprite):
 	def get_damage(self):
 		if not self.invincible:
 			self.hit_sound.play()
-			self.change_health(-10)
+			self.change_health(-40)
 			self.invincible = True
 			self.hurt_time = pygame.time.get_ticks()
 

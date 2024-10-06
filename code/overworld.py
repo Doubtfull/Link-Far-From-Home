@@ -63,12 +63,16 @@ class Overworld:
 		self.bg = Button(-60, -10, bg_image)
 		level_1 = pygame.image.load("./graphics/ui/level1.png")
 		self.level1 = BGImage(325, 180, level_1)
+		RA_image = pygame.image.load("./graphics/ui/ArrowRight.png")
+		self.RA = BGImage (775, 225, RA_image)
   
 		#level two
 		bg2_image = pygame.image.load("./graphics/ui/bg_2.jpg")
 		self.bg2 = Button (0,-320, bg2_image)
 		level_2 = pygame.image.load("./graphics/ui/level2.png")
 		self.level2 = BGImage(325, 180, level_2)
+		LA_image = pygame.image.load("./graphics/ui/ArrowLeft.png")
+		self.LA = BGImage (20, 225, LA_image)
   
 		# movement logic
 		self.moving = False
@@ -157,7 +161,12 @@ class Overworld:
 	def check_press(self):
 		if self.play.check_pressed() and self.main_menu:
 			self.main_menu = False
-			self.oneyes = True
+			if self.current_level == 0:
+				self.oneyes = True
+				self.twoyes = False
+			elif self.current_level == 1:
+				self.oneyes = False
+				self.twoyes = True
    
 
 
@@ -179,7 +188,9 @@ class Overworld:
 		if self.oneyes:
 			self.bg.draw(self.display_surface)
 			self.level1.draw(self.display_surface)
+			self.RA.draw(self.display_surface)
 
 		if self.twoyes:
 			self.bg2.draw(self.display_surface)
 			self.level2.draw(self.display_surface)
+			self.LA.draw(self.display_surface)
